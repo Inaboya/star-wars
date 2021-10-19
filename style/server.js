@@ -1,4 +1,15 @@
-` <div class="col-md-4"
+const section = document.getElementById("root");
+
+function getStars() {
+  fetch("https://swapi.dev/api/people")
+    .then((res) => res.json())
+    .then((data) => {
+      let output;
+      data.results.forEach((char, index) => {
+        let src = `img/${index}.jpg` || `img/${index}.png`;
+
+        output += `
+        <div class="col-lg-3 col-md-4 col-sm-4"
         <div class="products-center">
           <!--List Of Characters-->
           <div class="product">
@@ -22,3 +33,18 @@
         </div>
       
       `;
+      });
+
+      section.innerHTML += output;
+    });
+}
+
+getStars();
+
+function showDetails(index) {
+  const getInfo = document.getElementById(index);
+  console.log(getInfo.style.display);
+  if (getInfo.style.display === "none") {
+    getInfo.style.display = "block";
+  }
+}
